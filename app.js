@@ -6,8 +6,8 @@ const locationUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/new%20del
 request({ url: locationUrl, json: true }, function getCoordinates(erro, res) {
   const data = res.body;
   console.log(chalk.inverse(data.features[0].place_name));
-  const lat = data.features[0].center[0];
-  const long = data.features[0].center[1]
+  const lat = data.features[0].center[1];
+  const long = data.features[0].center[0]
   console.log("Latitude: ", lat);
   console.log("Longitude: ", long);
   getWeather(lat, long);
