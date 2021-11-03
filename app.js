@@ -1,16 +1,25 @@
-const request = require("postman-request");
 const geocode = require("./utils/geocode");
 const forecast = require("./utils/forecast");
 
-
-geocode("new delhi", (error, res) => {
-  console.log("Error", error);
-  console.log("Res", res);
-
-  forecast(28.7041, 77.1025, (error, data) => {
-    console.log('Error', error)
-    console.log('Data', data)
-  })
-
-});
+function main() {
+  const location = process.argv[2];
+  if(!location) {
+    return console.log("Please enter some location");
+  }
+  geocode(location, (error, data) => {
+    if(error) {
+      return console.log(error);
+    }
+  
+    forecast(data.latitude, data.longitude, (error, forecastData) => {
+      if(error) {
+        return console.log(error);
+      }
+      console.log(data.location);
+      console.log(forecastData);
+    })
+  
+  });
+}
+main();
 
